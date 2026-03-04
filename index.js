@@ -9,13 +9,12 @@ app.use(express.json());
 
 // Config Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyDMqUM-3i5xENs-CuG2kGS95sORzoPScNw",
-  authDomain: "candidatures-metiers-nantesrp.firebaseapp.com",
-  // Supprime la ligne databaseURL ici
-  projectId: "candidatures-metiers-nantesrp",
-  storageBucket: "candidatures-metiers-nantesrp.firebasestorage.app",
-  messagingSenderId: "521450458200",
-  appId: "1:521450458200:web:66445e8316047a8cc98e2d"
+  apiKey: "AIzaSyBM3qoHPjaQGEMNem_dMf9c0OgtDBW7pD0",
+  authDomain: "candidatures-nantesrp.firebaseapp.com",
+  projectId: "candidatures-nantesrp",
+  storageBucket: "candidatures-nantesrp.firebasestorage.app",
+  messagingSenderId: "224090316450",
+  appId: "1:224090316450:web:cbe053f80d363bfed481fb"
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
@@ -43,5 +42,6 @@ app.get("/api/candidatures", async (req, res) => {
 });
 
 app.listen(3000, () => console.log("API running"));
+
 
 
