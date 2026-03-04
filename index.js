@@ -9,12 +9,13 @@ app.use(express.json());
 
 // Config Firebase
 const firebaseConfig = {
-  apiKey: "TA_CLE",
-  authDomain: "TON_PROJET.firebaseapp.com",
-  projectId: "TON_PROJET",
-  storageBucket: "TON_PROJET.appspot.com",
-  messagingSenderId: "ID",
-  appId: "APP_ID"
+  apiKey: "AIzaSyDMqUM-3i5xENs-CuG2kGS95sORzoPScNw",
+  authDomain: "candidatures-metiers-nantesrp.firebaseapp.com",
+  databaseURL: "https://candidatures-metiers-nantesrp-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "candidatures-metiers-nantesrp",
+  storageBucket: "candidatures-metiers-nantesrp.firebasestorage.app",
+  messagingSenderId: "521450458200",
+  appId: "1:521450458200:web:66445e8316047a8cc98e2d"
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
@@ -42,3 +43,4 @@ app.get("/api/candidatures", async (req, res) => {
 });
 
 app.listen(3000, () => console.log("API running"));
+
