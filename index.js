@@ -11,7 +11,7 @@ app.use(express.json());
 const firebaseConfig = {
   apiKey: "AIzaSyDMqUM-3i5xENs-CuG2kGS95sORzoPScNw",
   authDomain: "candidatures-metiers-nantesrp.firebaseapp.com",
-  databaseURL: "https://candidatures-metiers-nantesrp-default-rtdb.europe-west1.firebasedatabase.app",
+  // Supprime la ligne databaseURL ici
   projectId: "candidatures-metiers-nantesrp",
   storageBucket: "candidatures-metiers-nantesrp.firebasestorage.app",
   messagingSenderId: "521450458200",
@@ -43,4 +43,5 @@ app.get("/api/candidatures", async (req, res) => {
 });
 
 app.listen(3000, () => console.log("API running"));
+
 
