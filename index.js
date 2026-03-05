@@ -23,12 +23,23 @@ const db = getFirestore(firebaseApp);
 // POST : ajouter une candidature
 app.post("/api/candidatures", async (req, res) => {
   try {
-    await addDoc(collection(db, "candidatures"), req.body);
+    const { discord, age, metier, motivation, email } = req.body;
+
+    await addDoc(collection(db, "candidatures"), {
+      discord,
+      age,
+      metier,
+      motivation,
+      email,
+      createdAt: Date.now()
+    });
+
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 // GET : récupérer toutes les candidatures
 app.get("/api/candidatures", async (req, res) => {
@@ -42,6 +53,7 @@ app.get("/api/candidatures", async (req, res) => {
 });
 
 app.listen(3000, () => console.log("API running"));
+
 
 
 
