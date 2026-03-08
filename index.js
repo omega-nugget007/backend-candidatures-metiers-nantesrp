@@ -12,6 +12,8 @@ const METIERS_WEBHOOK = process.env.METIERS_WEBHOOK;
 
 // Endpoint STAFF
 app.post("/staff", async (req, res) => {
+  console.log("Envoi à Apps Script :", req.body); // ICI
+
   try {
     const response = await fetch(STAFF_WEBHOOK, {
       method: "POST",
@@ -27,8 +29,11 @@ app.post("/staff", async (req, res) => {
   }
 });
 
+
 // Endpoint METIERS
 app.post("/metiers", async (req, res) => {
+
+  console.log("Envoi à Apps Script :", req.body); // ICI
   try {
     const response = await fetch(METIERS_WEBHOOK, {
       method: "POST",
@@ -48,3 +53,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("API en écoute sur le port", PORT);
 });
+
