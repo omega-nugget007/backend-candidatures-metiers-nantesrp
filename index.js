@@ -1,59 +1,50 @@
 import express from "express";
 import cors from "cors";
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
+import fetch from "node-fetch";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Config Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyBM3qoHPjaQGEMNem_dMf9c0OgtDBW7pD0",
-  authDomain: "candidatures-nantesrp.firebaseapp.com",
-  projectId: "candidatures-nantesrp",
-  storageBucket: "candidatures-nantesrp.firebasestorage.app",
-  messagingSenderId: "224090316450",
-  appId: "1:224090316450:web:cbe053f80d363bfed481fb"
-};
+// URLs de tes Apps Script (WebApp)
+const STAFF_WEBHOOK = process.env.STAFF_WEBHOOK;
+const METIERS_WEBHOOK = process.env.METIERS_WEBHOOK;
 
-const firebaseApp = initializeApp(firebaseConfig);
-const db = getFirestore(firebaseApp);
-
-// POST : ajouter une candidature
-app.post("/api/candidatures", async (req, res) => {
+// Endpoint STAFF
+app.post("/staff", async (req, res) => {
   try {
-    const { discord, age, metier, motivation, email } = req.body;
-
-    await addDoc(collection(db, "candidatures"), {
-      discord,
-      age,
-      metier,
-      motivation,
-      email,
-      createdAt: Date.now()
+    const response = await fetch(STAFF_WEBHOOK, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(req.body)
     });
 
-    res.json({ success: true });
+    const text = await response.text();
+    return res.status(200).json({ ok: true, fromAppsScript: text });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Erreur STAFF → Apps Script:", err);
+    return res.status(500).json({ ok: false, error: "Erreur côté serveur STAFF" });
   }
 });
 
-
-// GET : récupérer toutes les candidatures
-app.get("/api/candidatures", async (req, res) => {
+// Endpoint METIERS
+app.post("/metiers", async (req, res) => {
   try {
-    const snapshot = await getDocs(collection(db, "candidatures"));
-    const list = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    res.json(list);
+    const response = await fetch(METIERS_WEBHOOK, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(req.body)
+    });
+
+    const text = await response.text();
+    return res.status(200).json({ ok: true, fromAppsScript: text });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Erreur METIERS → Apps Script:", err);
+    return res.status(500).json({ ok: false, error: "Erreur côté serveur METIERS" });
   }
 });
 
-app.listen(3000, () => console.log("API running"));
-
-
-
-
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log("API en écoute sur le port", PORT);
+});
