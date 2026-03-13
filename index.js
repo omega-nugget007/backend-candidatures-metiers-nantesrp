@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
 
-app.get("/health", (req, res) => res.json({ status: "ok" }));
+
 
 const app = express();
 app.use(cors());
@@ -11,6 +11,8 @@ app.use(express.json());
 // URLs de tes Apps Script (WebApp)
 const STAFF_WEBHOOK = process.env.STAFF_WEBHOOK;
 const METIERS_WEBHOOK = process.env.METIERS_WEBHOOK;
+
+app.get("/health", (req, res) => res.json({ status: "ok" }));
 
 // Endpoint STAFF
 app.post("/staff", async (req, res) => {
