@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
 
+app.get("/health", (req, res) => res.json({ status: "ok" }));
+
 const app = express();
 app.use(cors());
 app.use(express.json());
